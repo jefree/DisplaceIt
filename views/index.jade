@@ -2,19 +2,20 @@ doctype html
 html
   head
     title
-    |   
+    
     script(type='text/javascript', src='js/phaser.min.js')
-    |   
-    script(type='text/javascript', src='js/game.js')
-    |   
-    script(type='text/javascript', src='js/character.js')
-    |   
+       
+    script(type='text/javascript', src='js/states/game.js')
+    script(type='text/javascript', src='js/states/menu.js')
+       
+    script(type='text/javascript', src='js/classes/character.js')
+       
     script(type='text/javascript', src='js/main.js')
   body
     h1 Displace It !
-    |   
+       
     label Usuario
-    |   
+       
     input(type='text')
-    |   
+       
     #gameContainer

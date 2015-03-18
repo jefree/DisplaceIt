@@ -73,5 +73,4 @@ DisplaceIt.Game.Character.prototype.update = function() {
   }
 }
 
-DisplaceIt.Game.Character.DELTA = 30;
-DisplaceIt.Game.Character.SPEED = 100;
+DisplaceIt.Game.Character.SPEED = 150;

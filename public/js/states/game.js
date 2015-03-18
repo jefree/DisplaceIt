@@ -1,6 +1,9 @@
 var DisplaceIt = DisplaceIt || {};
 
-DisplaceIt.Game = function(levelNumber){
+DisplaceIt.Game = function(game){
+}
+
+DisplaceIt.Game.prototype.init = function(levelNumber) {
   this.initialLevel = levelNumber;
 }
 
@@ -61,8 +64,13 @@ DisplaceIt.Game.prototype.checkVictory = function() {
   var y = Math.round(this.chars[0].y / 100);
 
   if (x == this.winPos.x && y == this.winPos.y) {
-    alert("ganaste");
+    var level = Number(localStorage.getItem('dIt-level'));
+    level += 1;
+    localStorage.setItem('dIt-level', level);
+
     this.win = true;
+
+    this.loadLevel(level)
   }
 }
 
@@ -83,6 +91,7 @@ DisplaceIt.Game.prototype.createWorld = function() {
 
 DisplaceIt.Game.prototype.resetWorld = function() {
   this.allowMove = true;
+  this.win = false;
   this.createWorld(this.currentWorld);
 
   for ( i in this.chars) {
@@ -96,8 +105,6 @@ DisplaceIt.Game.prototype.loadLevel = function(number) {
 
   this.game.load.onLoadComplete.addOnce(function(){
     var level = this.game.cache.getJSON('level-'+number);
-
-    console.log(level);
     
     this.setWorld(level);
     this.resetWorld();
