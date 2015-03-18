@@ -8,27 +8,34 @@ DisplaceIt.Game.prototype.init = function(levelNumber) {
 }
 
 DisplaceIt.Game.prototype.preload = function(){
-  this.game.load.spritesheet('chars', 'img/chars.png', 100, 100);
-  this.game.load.image('back', 'img/back.png');
-  this.game.load.image('win', 'img/win.png');
+
+  this.game.load.image('spaceship', '/img/spaceship.png');
+  this.game.load.image('wormhole', '/img/wormhole.png');
+  this.game.load.image('station', '/img/station.png');
+
 }
 
 DisplaceIt.Game.prototype.create = function(){
-  this.game.add.image(0, 0, 'back');
-  this.winSprite = this.game.add.image(0, 0, 'win');
+  //this.game.add.image(0, 0, 'background');
+
+  this.winSprite = this.game.add.image(0, 0, 'wormhole');
+  this.winSprite.anchor.set(.5, .5);
 
   this.allowMove = true;
 
   this.chars = [];
-  this.chars[0] = new DisplaceIt.Game.Character(this.game, 0, 0, "chars", 0, this);
-  this.chars[1] = new DisplaceIt.Game.Character(this.game, 0, 0, "chars", 1, this);
-  this.chars[2] = new DisplaceIt.Game.Character(this.game, 0, 0, "chars", 2, this);
-  this.chars[3] = new DisplaceIt.Game.Character(this.game, 0, 0, "chars", 3, this);
+  this.chars[0] = new DisplaceIt.Game.Character(this.game, 0, 0, "spaceship", 0, this);
+
+  this.chars[1] = new DisplaceIt.Game.Character(this.game, 0, 0, "station", 0, this);
+  this.chars[2] = new DisplaceIt.Game.Character(this.game, 0, 0, "station", 0, this);
+  this.chars[3] = new DisplaceIt.Game.Character(this.game, 0, 0, "station", 0, this);
 
   this.loadLevel(this.initialLevel);
 }
 
 DisplaceIt.Game.prototype.update = function() {
+
+  this.winSprite.rotation += Math.PI / 45;
 
   if (!this.loaded)
     return;
@@ -80,13 +87,12 @@ DisplaceIt.Game.prototype.setWorld = function(world) {
 
 DisplaceIt.Game.prototype.createWorld = function() {
 
-  for (i in this.currentWorld.chars) {
-    var pos = this.currentWorld.chars[i];
-    this.chars[i].position.set(pos.x*100 , pos.y*100);
+  for (var i=0; i<4; i++) {
+    this.chars[i].position.set(this.currentWorld.chars[i].x*100, this.currentWorld.chars[i].y*100);
   }
 
   this.winPos = this.currentWorld.winPos;
-  this.winSprite.position.set(this.winPos.x*100, this.winPos.y*100);
+  this.winSprite.position.set(this.winPos.x*100 + this.winSprite.width*.5, this.winPos.y*100 + this.winSprite.height*.5);
 }
 
 DisplaceIt.Game.prototype.resetWorld = function() {
