@@ -11,6 +11,7 @@ window.onload = function() {
 
     game.state.add('menu', DisplaceIt.Menu)
     game.state.add('game', DisplaceIt.Game);
+    game.state.add('instructions', DisplaceIt.Instructions);
 
     game.state.start('menu');
 

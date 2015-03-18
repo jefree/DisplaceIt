@@ -11,12 +11,23 @@ DisplaceIt.Menu.prototype.init = function(what) {
 DisplaceIt.Menu.prototype.preload = function() {
 
   this.game.load.image('play_btn', '/img/play_btn.png');
+  this.game.load.image('instructions_btn', '/img/instructions_btn.png');
 }
 
 DisplaceIt.Menu.prototype.create = function() {
 
   var playBtn = this.game.add.image(0, 0, 'play_btn');
+  playBtn.anchor.set(.5, .5);
+  playBtn.x = this.game.world.centerX;
+  playBtn.y = this.game.world.centerY - playBtn.height / 2 - 10;
+  
+  var instructionsBtn = this.game.add.image(0, 0, 'instructions_btn');
+  instructionsBtn.anchor.set(.5, .5);
+  instructionsBtn.x = this.game.world.centerX;
+  instructionsBtn.y = this.game.world.centerY + instructionsBtn.height/2 + 10;
+
   playBtn.inputEnabled = true;
+  instructionsBtn.inputEnabled = true;
 
   playBtn.events.onInputDown.add(function(){
    
@@ -29,6 +40,10 @@ DisplaceIt.Menu.prototype.create = function() {
 
     this.game.state.start('game', true, false, level);    
     
+  }, this);
+
+  instructionsBtn.events.onInputDown.add(function(){
+    this.game.state.start('instructions');
   }, this);
 
 }

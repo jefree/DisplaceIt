@@ -1,21 +1,24 @@
 doctype html
 html
   head
-    title
-    
+
+    style().
+      @font-face {
+        font-family: 'Unibody8Pro-Regular';
+        src: url('/fonts/Unibody8Pro-Regular.ttf') format('truetype');
+      }
+
     script(type='text/javascript', src='js/phaser.min.js')
-       
+
     script(type='text/javascript', src='js/states/game.js')
     script(type='text/javascript', src='js/states/menu.js')
-       
+    script(type='text/javascript', src='js/states/instructions.js')
+
     script(type='text/javascript', src='js/classes/character.js')
-       
+
     script(type='text/javascript', src='js/main.js')
+
   body
     h1 Displace It !
-       
-    label Usuario
-       
-    input(type='text')
-       
+
     #gameContainer
