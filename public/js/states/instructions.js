@@ -10,7 +10,7 @@ DisplaceIt.Instructions.prototype.preload = function() {
 
 DisplaceIt.Instructions.prototype.create = function() {
 
-  var text = this.game.add.text(0, 0, DisplaceIt.Instructions.TEXT, {fill: "black", font: "28pt Unibody8Pro-Regular", align: "center"});
+  var text = this.game.add.text(0, 0, DisplaceIt.Instructions.TEXT, {fill: "white", font: "28pt Unibody8Pro-Regular", align: "center"});
   text.wordWrap = true;
   text.wordWrapWidth = 450;
   text.anchor.set(.5, 0);

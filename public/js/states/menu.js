@@ -4,10 +4,6 @@ DisplaceIt.Menu = function(game){
 
 }
 
-DisplaceIt.Menu.prototype.init = function(what) {
-
-}
-
 DisplaceIt.Menu.prototype.preload = function() {
 
   this.game.load.image('title', '/img/title.png');
@@ -17,7 +13,7 @@ DisplaceIt.Menu.prototype.preload = function() {
 
 DisplaceIt.Menu.prototype.create = function() {
 
-  this.game.stage.backgroundColor = "black"//"#99d9ea"
+  this.game.stage.backgroundColor = "black";
 
   var title = this.game.add.image(0, 0, 'title');
   title.anchor.set(.5, 0);

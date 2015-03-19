@@ -21,6 +21,7 @@ DisplaceIt.Game.prototype.create = function(){
   this.winSprite = this.game.add.image(0, 0, 'wormhole');
   this.winSprite.anchor.set(.5, .5);
 
+  this.time = 0;
   this.allowMove = true;
 
   this.chars = [];
@@ -29,6 +30,16 @@ DisplaceIt.Game.prototype.create = function(){
   this.chars[1] = new DisplaceIt.Game.Character(this.game, 0, 0, "station", 0, this);
   this.chars[2] = new DisplaceIt.Game.Character(this.game, 0, 0, "station", 0, this);
   this.chars[3] = new DisplaceIt.Game.Character(this.game, 0, 0, "station", 0, this);
+
+  this.timeText = this.game.add.text(0, 0, '00:00', {fill: "gray", font: "20pt Unibody8Pro-Regular", align: "left"});
+  this.timeText.anchor.set(0, 1);
+  this.timeText.y = this.game.width;
+
+  this.game.time.events.loop(1000, function(){
+    this.time += 1;
+    this.timeText.text = this.getMinutesText();
+
+  }, this);
 
   this.loadLevel(this.initialLevel);
 }
@@ -101,11 +112,16 @@ DisplaceIt.Game.prototype.resetWorld = function() {
   this.createWorld(this.currentWorld);
 
   for ( i in this.chars) {
+    this.chars[i].visible = true;
     this.chars[i].body.velocity.set(0, 0);
   }
 } 
 
 DisplaceIt.Game.prototype.loadLevel = function(number) {
+
+  this.chars.forEach(function(sprite) {
+    sprite.visible = false;
+  });
       
   this.game.load.json('level-'+number, '/api/levels/'+number);
 
@@ -120,6 +136,28 @@ DisplaceIt.Game.prototype.loadLevel = function(number) {
   }, this);
 
   this.game.load.start();
+}
+
+DisplaceIt.Game.prototype.getMinutesText = function() {
+
+  var minutes = Math.floor(this.time / 60);
+  var seconds = this.time - minutes * 60;
+
+  if (minutes < 10) {
+    minutes = '0'+minutes;
+  }
+  else {
+    minutes = ''+minutes;
+  }
+
+  if (seconds < 10) {
+    seconds = '0'+seconds;
+  }
+  else {
+    seconds = ''+seconds;
+  }
+
+  return minutes + ':' + seconds;
 }
 
 DisplaceIt.Game.prototype.render = function(){

@@ -2,13 +2,10 @@ doctype html
 html
   head
 
-    style().
-      @font-face {
-        font-family: 'Unibody8Pro-Regular';
-        src: url('/fonts/Unibody8Pro-Regular.ttf') format('truetype');
-      }
+    link(rel="stylesheet" type="text/css" href="css/style.css")
 
     script(type='text/javascript', src='js/phaser.min.js')
+    script(type='text/javascript', src='js/ajax.js')
 
     script(type='text/javascript', src='js/states/game.js')
     script(type='text/javascript', src='js/states/menu.js')
@@ -19,6 +16,11 @@ html
     script(type='text/javascript', src='js/main.js')
 
   body
-    h1 Displace It !
 
-    #gameContainer
+    #info.hid
+      label.msg Dinos tu nombre de usuario
+      label#error.error.hid Usuario No Valido
+      input#username(type="text" autocomplete="off")
+      button(onclick="App.validateUsername()") ENTRAR
+
+    #gameContainer.hid
