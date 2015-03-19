@@ -3,8 +3,12 @@ var DisplaceIt = DisplaceIt || {};
 DisplaceIt.Game = function(game){
 }
 
-DisplaceIt.Game.prototype.init = function(levelNumber) {
-  this.initialLevel = levelNumber;
+DisplaceIt.Game.prototype.init = function(username, password, level) {
+  this.username = username;
+  this.password = password;
+  this.level = level;
+
+  console.log('game', username, password, level);
 }
 
 DisplaceIt.Game.prototype.preload = function(){
@@ -31,9 +35,14 @@ DisplaceIt.Game.prototype.create = function(){
   this.chars[2] = new DisplaceIt.Game.Character(this.game, 0, 0, "station", 0, this);
   this.chars[3] = new DisplaceIt.Game.Character(this.game, 0, 0, "station", 0, this);
 
-  this.timeText = this.game.add.text(0, 0, '00:00', {fill: "gray", font: "20pt Unibody8Pro-Regular", align: "left"});
+  this.timeText = this.game.add.text(0, 0, '00:00', {fill: "red", font: "20pt Unibody8Pro-Regular", align: "left"});
   this.timeText.anchor.set(0, 1);
-  this.timeText.y = this.game.width;
+  this.timeText.y = this.game.height;
+
+  this.levelText = this.game.add.text(0, 0, this.level, {fill: "red", font: "20pt Unibody8Pro-Regular", align: "left"});
+  this.levelText.anchor.set(1, 1);
+  this.levelText.x = this.game.width;
+  this.levelText.y = this.game.height;
 
   this.game.time.events.loop(1000, function(){
     this.time += 1;
@@ -41,7 +50,7 @@ DisplaceIt.Game.prototype.create = function(){
 
   }, this);
 
-  this.loadLevel(this.initialLevel);
+  this.loadLevel(this.level);
 }
 
 DisplaceIt.Game.prototype.update = function() {
@@ -82,18 +91,13 @@ DisplaceIt.Game.prototype.checkVictory = function() {
   var y = Math.round(this.chars[0].y / 100);
 
   if (x == this.winPos.x && y == this.winPos.y) {
-    var level = Number(localStorage.getItem('dIt-level'));
-    level += 1;
-    localStorage.setItem('dIt-level', level);
 
+    this.level += 1;
     this.win = true;
 
-    this.loadLevel(level)
+    ajax.put('/api/users/level/', { username: this.username, password: this.password, level: this.level });
+    this.loadLevel(this.level)
   }
-}
-
-DisplaceIt.Game.prototype.setWorld = function(world) {
-  this.currentWorld = world;
 }
 
 DisplaceIt.Game.prototype.createWorld = function() {
@@ -128,7 +132,8 @@ DisplaceIt.Game.prototype.loadLevel = function(number) {
   this.game.load.onLoadComplete.addOnce(function(){
     var level = this.game.cache.getJSON('level-'+number);
     
-    this.setWorld(level);
+    this.currentWorld = level;
+    this.levelText.text = number;
     this.resetWorld();
 
     this.loaded = true;

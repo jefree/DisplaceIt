@@ -4,6 +4,12 @@ DisplaceIt.Menu = function(game){
 
 }
 
+DisplaceIt.Menu.prototype.init =  function(username, password, level) {
+  this.username = username;
+  this.password = password;
+  this.level = level;
+}
+
 DisplaceIt.Menu.prototype.preload = function() {
 
   this.game.load.image('title', '/img/title.png');
@@ -41,7 +47,7 @@ DisplaceIt.Menu.prototype.create = function() {
       level = 1;
     }
 
-    this.game.state.start('game', true, false, level);    
+    this.game.state.start('game', true, false, this.username, this.password, this.level);    
     
   }, this);
 

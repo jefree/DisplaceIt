@@ -27,6 +27,7 @@ ajax.send = function(url, onSuccess, onError, method, data, sync) {
   x.open(method, url, sync);
   x.onreadystatechange = function() {
     if (x.readyState == 4) {
+      console.log(x.status);
       if (x.status == 200) {
         onSuccess && onSuccess(x.responseText);
       }
@@ -35,7 +36,7 @@ ajax.send = function(url, onSuccess, onError, method, data, sync) {
       }
     }
   };
-  if (method == 'POST') {
+  if (method == 'POST' || method == 'PUT') {
     x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   }
   x.send(data)
@@ -55,4 +56,14 @@ ajax.post = function(url, data, onSuccess, onError, sync) {
     query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
   }
   ajax.send(url, onSuccess, onError, 'POST', query.join('&'), sync)
+};
+
+ajax.put = function(url, data, onSuccess, onError, sync) {
+
+  var query = [];
+  for (var key in data) {
+    query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+  }
+
+  ajax.send(url, onSuccess, onError, 'PUT', query.join('&'), sync)
 };

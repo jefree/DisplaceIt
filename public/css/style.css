@@ -8,9 +8,10 @@
 }
 
 #info {
-  display: none;
+  display: block;
   margin: 0 auto;
   text-align: center;
+  margin-top: 25vh;
 }
 
 body {
@@ -30,6 +31,10 @@ input {
   font-size: 36px;
   text-align: center;
   margin-bottom: 10px;
+}
+
+input:focus {
+  outline: 0;
 }
 
 button {
@@ -57,7 +62,7 @@ label {
 
 label.msg {
   color: white;
-  font-size: 36px;
+  font-size: 60px;
 }
 
 label.error {

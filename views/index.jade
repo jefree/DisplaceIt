@@ -17,10 +17,12 @@ html
 
   body
 
-    #info.hid
-      label.msg Dinos tu nombre de usuario
-      label#error.error.hid Usuario No Valido
-      input#username(type="text" autocomplete="off")
-      button(onclick="App.validateUsername()") ENTRAR
+    #info
+      label.msg DISPLACE IT !
+      label#error.error.hid 
+      input#username(type="text" autocomplete="off" placeholder="Usuario")
+      input#password(type="password" placeholder="Password")
+      button(onclick="App.validate()") ENTRAR
+      button(onclick="App.register()") REGISTRAR
 
     #gameContainer.hid
